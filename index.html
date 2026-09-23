@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronoun Master - Media Pembelajaran Interaktif HTML5</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti for Quiz Completion -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-btn.active {
+            background-color: #4f46e5;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+        .materi-card {
+            transition: all 0.3s ease;
+        }
+        .materi-card:hover {
+            transform: translateY(-4px);
+        }
+        .animate-bounce-short {
+            animation: bounce 0.8s ease infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-6px); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="bg-indigo-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('beranda')">
+                <div class="bg-white text-indigo-600 p-2 rounded-xl shadow-inner font-black text-xl">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight">Pronoun Master</h1>
+                    <p class="text-xs text-indigo-200">Media Interaktif Bahasa Inggris</p>
+                </div>
+            </div>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-2">
+                <button onclick="switchTab('beranda')" id="nav-beranda" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-500">
+                    <i class="fa-solid fa-house mr-1"></i> Beranda
+                </button>
+                <button onclick="switchTab('materi')" id="nav-materi" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-500">
+                    <i class="fa-solid fa-book-open mr-1"></i> Materi
+                </button>
+                <button onclick="switchTab('aktivitas')" id="nav-aktivitas" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-500">
+                    <i class="fa-solid fa-gamepad mr-1"></i> Aktivitas
+                </button>
+                <button onclick="switchTab('latihan')" id="nav-latihan" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition hover:bg-indigo-500">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> Latihan Soal
+                </button>
+            </nav>
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2 rounded-lg focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-indigo-700 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('beranda'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-600">Beranda</button>
+            <button onclick="switchTab('materi'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-600">Materi Belajar</button>
+            <button onclick="switchTab('aktivitas'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-600">Aktivitas Interaktif</button>
+            <button onclick="switchTab('latihan'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-600">Latihan Soal</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- SECTION 1: BERANDA -->
+        <section id="section-beranda" class="tab-content block space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-800 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl font-extrabold select-none">
+                    HE/SHE
+                </div>
+                <div class="max-w-2xl relative z-10 space-y-4">
+                    <span class="bg-indigo-500/50 text-indigo-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                        Interactive Learning Media
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold leading-tight">
+                        Kuasai <span class="text-yellow-300">English Pronouns</span> Dengan Mudah & Menyenangkan!
+                    </h2>
+                    <p class="text-indigo-100 text-sm sm:text-base leading-relaxed">
+                        Pahami perbedaan kata ganti sebagai Subjek, Objek, Possessive Adjective, dan Possessive Pronoun secara menyeluruh melalui materi visual, latihan interaktif, dan kuis uji pemahaman.
+                    </p>
+                    <div class="pt-4 flex flex-wrap gap-3">
+                        <button onclick="switchTab('materi')" class="bg-yellow-400 hover:bg-yellow-300 text-indigo-950 font-bold px-6 py-3 rounded-xl shadow-lg transition flex items-center gap-2 transform active:scale-95">
+                            <i class="fa-solid fa-play"></i> Mulai Belajar
+                        </button>
+                        <button onclick="switchTab('latihan')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl backdrop-blur-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question"></i> Langsung Kuis
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Target Pembelajaran Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1">Subject Pronouns</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Kata ganti yang bertindak sebagai pelaku utama aksi dalam kalimat (I, You, They, We, He, She, It).</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-blue-600 bg-blue-50 py-1 px-3 rounded-full w-fit">Pelaku Utamanya</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1">Object Pronouns</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Kata ganti yang menerima tindakan atau aksi dari kata kerja (Me, You, Them, Us, Him, Her, It).</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-emerald-600 bg-emerald-50 py-1 px-3 rounded-full w-fit">Penerima Aksinya</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-key"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1">Possessive Adj.</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Kata sifat penunjuk kepemilikan yang WAJIB diikuti oleh kata benda (My, Your, Our, Their, His, Her, Its).</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-amber-600 bg-amber-50 py-1 px-3 rounded-full w-fit">+ Noun / Benda</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1">Possessive Pronouns</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Kata ganti kepemilikan mandiri yang TIDAK perlu diikuti benda lagi (Mine, Yours, Ours, Theirs, His, Hers).</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-purple-600 bg-purple-50 py-1 px-3 rounded-full w-fit">Mandiri (Tanpa Noun)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: MATERI PEMBELAJARAN -->
+        <section id="section-materi" class="tab-content hidden space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Materi Pembelajaran Pronoun</h2>
+                        <p class="text-sm text-slate-500">Pelajari aturan penggunaan dan tabel perbandingan lengkap di bawah ini.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterMateri('all')" class="materi-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white">Semua</button>
+                        <button onclick="filterMateri('subject')" class="materi-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">Subject</button>
+                        <button onclick="filterMateri('object')" class="materi-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">Object</button>
+                        <button onclick="filterMateri('poss-adj')" class="materi-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">Poss. Adj</button>
+                        <button onclick="filterMateri('poss-pron')" class="materi-tab px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200">Poss. Pronoun</button>
+                    </div>
+                </div>
+
+                <!-- Table Summary -->
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-indigo-50 text-indigo-900 text-xs uppercase font-extrabold">
+                            <tr>
+                                <th class="p-4 border-b">Orang / Subjek</th>
+                                <th class="p-4 border-b text-blue-700 bg-blue-50/50">Subject Pronoun</th>
+                                <th class="p-4 border-b text-emerald-700 bg-emerald-50/50">Object Pronoun</th>
+                                <th class="p-4 border-b text-amber-700 bg-amber-50/50">Possessive Adjective</th>
+                                <th class="p-4 border-b text-purple-700 bg-purple-50/50">Possessive Pronoun</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-medium">
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-bold text-slate-700">Saya (1st Person)</td>
+                                <td class="p-4 text-blue-600 font-bold bg-blue-50/20">I</td>
+                                <td class="p-4 text-emerald-600 font-bold bg-emerald-50/20">Me</td>
+                                <td class="p-4 text-amber-600 font-bold bg-amber-50/20">My (+ Benda)</td>
+                                <td class="p-4 text-purple-600 font-bold bg-purple-50/20">Mine</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-bold text-slate-700">Kamu / Kalian (2nd Person)</td>
+                                <td class="p-4 text-blue-600 font-bold bg-blue-50/20">You</td>
+                                <td class="p-4 text-emerald-600 font-bold bg-emerald-50/20">You</td>
+                                <td class="p-4 text-amber-600 font-bold bg-amber-50/20">Your (+ Benda)</td>
+                                <td class="p-4 text-purple-600 font-bold bg-purple-50/20">Yours</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-bold text-slate-700">Dia (Laki-laki)</td>
+                                <td class="p-4 text-blue-600 font-bold bg-blue-50/20">He</td>
+                                <td class="p-4 text-emerald-600 font-bold bg-emerald-50/20">Him</td>
+                                <td class="p-4 text-amber-600 font-bold bg-amber-50/20">His (+ Benda)</td>
+                                <td class="p-4 text-purple-600 font-bold bg-purple-50/20">His</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-bold text-slate-700">Dia (Perempuan)</td>
+                                <td class="p-4 text-blue-600 font-bold bg-blue-50/20">She</td>
+                                <td class="p-4 text-emerald-600 font-bold bg-emerald-50/20">Her</td>
+                                <td class="p-4 text-amber-600 font-bold bg-amber-50/20">Her (+ Benda)</td>
+                                <td class="p-4 text-purple-600 font-bold bg-purple-50/20">Hers</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-bold text-slate-700">Mereka (Plural)</td>
+                                <td class="p-4 text-blue-600 font-bold bg-blue-50/20">They</td>
+                                <td class="p-4 text-emerald-600 font-bold bg-emerald-50/20">Them</td>
+                                <td class="p-4 text-amber-600 font-bold bg-amber-50/20">Their (+ Benda)</td>
+                                <td class="p-4 text-purple-600 font-bold bg-purple-50/20">Theirs</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-bold text-slate-700">Kita / Kami (Plural)</td>
+                                <td class="p-4 text-blue-600 font-bold bg-blue-50/20">We</td>
+                                <td class="p-4 text-emerald-600 font-bold bg-emerald-50/20">Us</td>
+                                <td class="p-4 text-amber-600 font-bold bg-amber-50/20">Our (+ Benda)</td>
+                                <td class="p-4 text-purple-600 font-bold bg-purple-50/20">Ours</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="p-4 font-bold text-slate-700">Benda / Hewan (Singular)</td>
+                                <td class="p-4 text-blue-600 font-bold bg-blue-50/20">It</td>
+                                <td class="p-4 text-emerald-600 font-bold bg-emerald-50/20">It</td>
+                                <td class="p-4 text-amber-600 font-bold bg-amber-50/20">Its (+ Benda)</td>
+                                <td class="p-4 text-purple-600 font-bold bg-purple-50/20">- (Jarang)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Detailed Explanation Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <!-- Subject Card -->
+                    <div id="card-subject" class="materi-card border border-blue-200 bg-blue-50/30 p-5 rounded-2xl space-y-3">
+                        <div class="flex items-center gap-2 text-blue-700 font-bold text-lg">
+                            <i class="fa-solid fa-circle-user"></i>
+                            <h3>1. Subject Pronoun</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Berada di **sebelum kata kerja (verb)**. Bertindak sebagai pelaku yang melakukan aksi.
+                        </p>
+                        <div class="bg-white p-3.5 rounded-xl border border-blue-100 text-xs space-y-2">
+                            <p class="font-bold text-blue-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-volume-high text-blue-600"></i> Contoh Kalimat & Suara:
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• <span class="text-blue-600 font-extrabold underline">She</span> reads a book every night.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Dia (perempuan) membaca buku setiap malam.</p>
+                                    </div>
+                                    <button onclick="speakText('She reads a book every night.')" title="Dengarkan pengucapan" class="bg-blue-50 hover:bg-blue-100 text-blue-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-start justify-between gap-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• <span class="text-blue-600 font-extrabold underline">They</span> play basketball together.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Mereka bermain bola basket bersama.</p>
+                                    </div>
+                                    <button onclick="speakText('They play basketball together.')" title="Dengarkan pengucapan" class="bg-blue-50 hover:bg-blue-100 text-blue-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Object Card -->
+                    <div id="card-object" class="materi-card border border-emerald-200 bg-emerald-50/30 p-5 rounded-2xl space-y-3">
+                        <div class="flex items-center gap-2 text-emerald-700 font-bold text-lg">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <h3>2. Object Pronoun</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Berada di **setelah kata kerja (verb)** atau kata depan (preposition like *to, with, for*).
+                        </p>
+                        <div class="bg-white p-3.5 rounded-xl border border-emerald-100 text-xs space-y-2">
+                            <p class="font-bold text-emerald-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-volume-high text-emerald-600"></i> Contoh Kalimat & Suara:
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• Budi called <span class="text-emerald-600 font-extrabold underline">me</span> yesterday.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Budi menelepon/memanggil saya kemarin.</p>
+                                    </div>
+                                    <button onclick="speakText('Budi called me yesterday.')" title="Dengarkan pengucapan" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-start justify-between gap-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• The teacher is talking to <span class="text-emerald-600 font-extrabold underline">them</span>.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Guru itu sedang berbicara kepada mereka.</p>
+                                    </div>
+                                    <button onclick="speakText('The teacher is talking to them.')" title="Dengarkan pengucapan" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Possessive Adj Card -->
+                    <div id="card-poss-adj" class="materi-card border border-amber-200 bg-amber-50/30 p-5 rounded-2xl space-y-3">
+                        <div class="flex items-center gap-2 text-amber-700 font-bold text-lg">
+                            <i class="fa-solid fa-key"></i>
+                            <h3>3. Possessive Adjective</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Menerangkan kepemilikan atas suatu kata benda. **HARUS selalu diikuti Noun**.
+                        </p>
+                        <div class="bg-white p-3.5 rounded-xl border border-amber-100 text-xs space-y-2">
+                            <p class="font-bold text-amber-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-volume-high text-amber-600"></i> Contoh Kalimat & Suara:
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• This is <span class="text-amber-600 font-extrabold underline">my</span> car.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Ini adalah mobil saya. (Car = benda)</p>
+                                    </div>
+                                    <button onclick="speakText('This is my car.')" title="Dengarkan pengucapan" class="bg-amber-50 hover:bg-amber-100 text-amber-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-start justify-between gap-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• <span class="text-amber-600 font-extrabold underline">Her</span> house is very big.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Rumahnya (perempuan) sangat besar.</p>
+                                    </div>
+                                    <button onclick="speakText('Her house is very big.')" title="Dengarkan pengucapan" class="bg-amber-50 hover:bg-amber-100 text-amber-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Possessive Pronoun Card -->
+                    <div id="card-poss-pron" class="materi-card border border-purple-200 bg-purple-50/30 p-5 rounded-2xl space-y-3">
+                        <div class="flex items-center gap-2 text-purple-700 font-bold text-lg">
+                            <i class="fa-solid fa-box-archive"></i>
+                            <h3>4. Possessive Pronoun</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Menggantikan kata benda beserta kepemilikannya agar tidak terjadi pengulangan. **TIDAK boleh diikuti Noun lagi**.
+                        </p>
+                        <div class="bg-white p-3.5 rounded-xl border border-purple-100 text-xs space-y-2">
+                            <p class="font-bold text-purple-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-volume-high text-purple-600"></i> Contoh Kalimat & Suara:
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• This car is <span class="text-purple-600 font-extrabold underline">mine</span>.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Mobil ini adalah milik saya.</p>
+                                    </div>
+                                    <button onclick="speakText('This car is mine.')" title="Dengarkan pengucapan" class="bg-purple-50 hover:bg-purple-100 text-purple-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                                <div class="flex items-start justify-between gap-2">
+                                    <div>
+                                        <p class="font-semibold text-slate-800">• My phone is black, but <span class="text-purple-600 font-extrabold underline">yours</span> is white.</p>
+                                        <p class="text-[11px] text-slate-500 italic pl-3 mt-0.5"><i class="fa-solid fa-language text-slate-400 mr-1"></i>Arti: Ponsel saya hitam, tetapi milikmu putih.</p>
+                                    </div>
+                                    <button onclick="speakText('My phone is black, but yours is white.')" title="Dengarkan pengucapan" class="bg-purple-50 hover:bg-purple-100 text-purple-600 p-2 rounded-lg transition shrink-0 active:scale-95">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro-Tip Box -->
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 p-4 rounded-xl flex items-start gap-3">
+                    <div class="text-amber-500 text-xl"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div>
+                        <h4 class="font-bold text-amber-900 text-sm">Tips Membedakan Possessive Adjective & Possessive Pronoun:</h4>
+                        <p class="text-xs text-amber-800 mt-1">
+                            • Jika ada kata benda langsung setelahnya → Gunakan **Possessive Adjective** (*This is <span class="font-bold">my book</span>*).<br>
+                            • Jika berada di akhir atau tidak ada kata benda setelahnya → Gunakan **Possessive Pronoun** (*This book is <span class="font-bold">mine</span>*).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: AKTIVITAS INTERAKTIF -->
+        <section id="section-aktivitas" class="tab-content hidden space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Aktivitas Interaktif (4 Permainan)</h2>
+                    <p class="text-sm text-slate-500">Uji kelincahan dan pemahamanmu melalui 4 permainan interaktif yang bervariasi di bawah ini!</p>
+                </div>
+
+                <!-- Game Selection Tabs -->
+                <div class="flex border-b border-slate-200 overflow-x-auto pb-1 gap-1">
+                    <button onclick="switchGame(1)" id="tab-game-1" class="px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Act 1: Transformer
+                    </button>
+                    <button onclick="switchGame(2)" id="tab-game-2" class="px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-layer-group"></i> Act 2: Classifier
+                    </button>
+                    <button onclick="switchGame(3)" id="tab-game-3" class="px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-puzzle-piece"></i> Act 3: Story Cloze
+                    </button>
+                    <button onclick="switchGame(4)" id="tab-game-4" class="px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-magnifying-glass"></i> Act 4: Error Spotter
+                    </button>
+                </div>
+
+                <!-- GAME 1 CONTAINER: Pronoun Transformer -->
+                <div id="game-1" class="space-y-6">
+                    <div class="bg-indigo-50/50 p-4 rounded-xl text-xs text-indigo-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-indigo-600 text-base"></i>
+                        <span>Instruksi: Pilih pronoun yang paling tepat untuk menggantikan frasa/kata benda yang dicetak tebal!</span>
+                    </div>
+
+                    <!-- Interactive Card Game Structure -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 max-w-2xl mx-auto space-y-6 text-center">
+                        <div class="flex justify-between items-center text-xs text-slate-500 font-bold">
+                            <span id="g1-progress-text">Soal 1 dari 5</span>
+                            <span id="g1-score" class="text-indigo-600">Skor: 0</span>
+                        </div>
+
+                        <!-- Sentence Display Box -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <p id="g1-sentence" class="text-lg sm:text-xl font-bold text-slate-800">
+                                Loading sentence...
+                            </p>
+                        </div>
+
+                        <!-- Option Buttons -->
+                        <div id="g1-options" class="grid grid-cols-2 gap-3">
+                            <!-- Injected by JS -->
+                        </div>
+
+                        <!-- Feedback Box -->
+                        <div id="g1-feedback" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
+
+                        <div class="flex justify-end">
+                            <button id="g1-next-btn" onclick="nextGame1Question()" class="hidden bg-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-lg shadow hover:bg-indigo-700 transition">
+                                Soal Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GAME 2 CONTAINER: Category Matcher -->
+                <div id="game-2" class="hidden space-y-6">
+                    <div class="bg-indigo-50/50 p-4 rounded-xl text-xs text-indigo-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-indigo-600 text-base"></i>
+                        <span>Instruksi: Klik kata pronoun di kotak atas, lalu klik kelompok kategori yang sesuai di bawahnya!</span>
+                    </div>
+
+                    <!-- Word Bank -->
+                    <div class="bg-slate-100 p-4 rounded-2xl border border-slate-200">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Pilih Kata:</p>
+                        <div id="g2-word-bank" class="flex flex-wrap gap-2 justify-center">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Category Target Zones -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div onclick="classifyWord('subject')" class="bg-blue-50 border-2 border-dashed border-blue-300 rounded-2xl p-4 min-h-[160px] flex flex-col items-center cursor-pointer hover:border-blue-500 transition">
+                            <h4 class="font-bold text-blue-700 text-sm mb-2"><i class="fa-solid fa-user mr-1"></i> Subject</h4>
+                            <div id="zone-subject" class="flex flex-wrap gap-1.5 w-full justify-center"></div>
+                        </div>
+
+                        <div onclick="classifyWord('object')" class="bg-emerald-50 border-2 border-dashed border-emerald-300 rounded-2xl p-4 min-h-[160px] flex flex-col items-center cursor-pointer hover:border-emerald-500 transition">
+                            <h4 class="font-bold text-emerald-700 text-sm mb-2"><i class="fa-solid fa-bullseye mr-1"></i> Object</h4>
+                            <div id="zone-object" class="flex flex-wrap gap-1.5 w-full justify-center"></div>
+                        </div>
+
+                        <div onclick="classifyWord('poss-adj')" class="bg-amber-50 border-2 border-dashed border-amber-300 rounded-2xl p-4 min-h-[160px] flex flex-col items-center cursor-pointer hover:border-amber-500 transition">
+                            <h4 class="font-bold text-amber-700 text-sm mb-2"><i class="fa-solid fa-key mr-1"></i> Poss. Adj</h4>
+                            <div id="zone-poss-adj" class="flex flex-wrap gap-1.5 w-full justify-center"></div>
+                        </div>
+
+                        <div onclick="classifyWord('poss-pron')" class="bg-purple-50 border-2 border-dashed border-purple-300 rounded-2xl p-4 min-h-[160px] flex flex-col items-center cursor-pointer hover:border-purple-500 transition">
+                            <h4 class="font-bold text-purple-700 text-sm mb-2"><i class="fa-solid fa-box-archive mr-1"></i> Poss. Pronoun</h4>
+                            <div id="zone-poss-pron" class="flex flex-wrap gap-1.5 w-full justify-center"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2">
+                        <button onclick="resetGame2()" class="text-xs text-slate-500 hover:text-slate-800 font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right"></i> Reset Permainan
+                        </button>
+                        <div id="g2-status" class="text-xs font-bold text-indigo-600"></div>
+                    </div>
+                </div>
+
+                <!-- GAME 3 CONTAINER: Story Cloze Builder -->
+                <div id="game-3" class="hidden space-y-6">
+                    <div class="bg-indigo-50/50 p-4 rounded-xl text-xs text-indigo-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-indigo-600 text-base"></i>
+                        <span>Instruksi: Klik slot kosong pada cerita di bawah ini, lalu pilih kata pronoun yang paling tepat untuk melengkapinya!</span>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 max-w-2xl mx-auto space-y-6">
+                        <div class="flex justify-between items-center text-xs text-slate-500 font-bold">
+                            <span id="g3-story-title">Cerita 1</span>
+                            <span id="g3-score" class="text-indigo-600">Skor: 0</span>
+                        </div>
+
+                        <!-- Story Paragraph with Slot Buttons -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 leading-relaxed text-base sm:text-lg text-slate-800 font-medium space-y-3">
+                            <div id="g3-story-box">
+                                <!-- Injected by JS -->
+                            </div>
+                            <div id="g3-translation" class="text-xs text-slate-500 italic border-t pt-3">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Choices Panel for Active Slot -->
+                        <div id="g3-choices-container" class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-100 text-center space-y-3">
+                            <p id="g3-active-slot-hint" class="text-xs font-bold text-indigo-900">
+                                Klik salah satu tombol slot [ ... ] di atas untuk memilih jawaban!
+                            </p>
+                            <div id="g3-options-bank" class="flex flex-wrap gap-2 justify-center">
+                                <!-- Options injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Feedback & Navigation -->
+                        <div id="g3-feedback" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
+
+                        <div class="flex justify-between items-center pt-2">
+                            <button onclick="checkGame3Story()" id="g3-check-btn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2.5 rounded-lg shadow transition">
+                                <i class="fa-solid fa-check mr-1"></i> Periksa Jawaban Cerita
+                            </button>
+                            <button onclick="nextGame3Story()" id="g3-next-btn" class="hidden bg-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-lg shadow hover:bg-indigo-700 transition">
+                                Cerita Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GAME 4 CONTAINER: Error Spotter / Pronoun Detective -->
+                <div id="game-4" class="hidden space-y-6">
+                    <div class="bg-indigo-50/50 p-4 rounded-xl text-xs text-indigo-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-indigo-600 text-base"></i>
+                        <span>Instruksi: Klik kata ganti (pronoun) yang <b>SALAH</b> pada kalimat di bawah, lalu tentukan kata pengganti yang benar!</span>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 max-w-2xl mx-auto space-y-6 text-center">
+                        <div class="flex justify-between items-center text-xs text-slate-500 font-bold">
+                            <span id="g4-progress-text">Kasus 1 dari 4</span>
+                            <span id="g4-score" class="text-indigo-600">Skor: 0</span>
+                        </div>
+
+                        <!-- Sentence Box with Clickable Words -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <p class="text-xs text-slate-400 font-bold uppercase mb-3">Langkah 1: Klik kata yang salah dalam kalimat ini</p>
+                            <div id="g4-sentence-words" class="flex flex-wrap gap-2 justify-center text-lg font-bold">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Correction Panel (Step 2) -->
+                        <div id="g4-fix-panel" class="hidden bg-indigo-50/70 p-4 rounded-xl border border-indigo-200 space-y-3">
+                            <p class="text-xs font-bold text-indigo-900">
+                                🎉 Hebat! Kamu menemukan kata yang salah. Sekarang pilih pengganti yang BENAR:
+                            </p>
+                            <div id="g4-fix-options" class="flex flex-wrap gap-2 justify-center">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Feedback Box -->
+                        <div id="g4-feedback" class="hidden p-3 rounded-xl text-xs font-bold text-center"></div>
+
+                        <div class="flex justify-end">
+                            <button id="g4-next-btn" onclick="nextGame4Case()" class="hidden bg-indigo-600 text-white text-xs font-bold px-5 py-2.5 rounded-lg shadow hover:bg-indigo-700 transition">
+                                Kasus Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: SOAL LATIHAN / QUIZ -->
+        <section id="section-latihan" class="tab-content hidden space-y-8">
+            <div id="quiz-start-container" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center max-w-2xl mx-auto space-y-6">
+                <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Uji Pemahaman Pronoun</h2>
+                    <p class="text-sm text-slate-500 mt-2">
+                        Latihan ini terdiri dari 10 soal pilihan ganda interaktif yang mencakup Subject, Object, Possessive Adjectives, dan Possessive Pronouns.
+                    </p>
+                </div>
+                <div class="bg-indigo-50/50 p-4 rounded-xl text-xs text-indigo-900 text-left space-y-1">
+                    <p class="font-bold"><i class="fa-solid fa-circle-check text-indigo-600 mr-1"></i> Ketentuan Kuis:</p>
+                    <p>• Skor maksimal: 100 poin (10 poin per soal)</p>
+                    <p>• Terdapat penjelasan lengkap setelah menjawab setiap soal</p>
+                    <p>• Dapat diulang kembali kapan saja untuk memperbaiki skor</p>
+                </div>
+                <button onclick="startQuiz()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition transform active:scale-98">
+                    Mulai Kerjakan Soal
+                </button>
+            </div>
+
+            <!-- Quiz Play View -->
+            <div id="quiz-play-container" class="hidden max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
+                <!-- Quiz Progress Bar -->
+                <div>
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-500 mb-2">
+                        <span id="quiz-question-number">Soal 1 dari 10</span>
+                        <span id="quiz-current-score" class="text-indigo-600">Skor: 0</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="quiz-progress-bar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <!-- Question Text -->
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <span id="quiz-category-badge" class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 inline-block mb-3">
+                        Category
+                    </span>
+                    <h3 id="quiz-question-text" class="text-base sm:text-lg font-bold text-slate-800">
+                        Question text goes here?
+                    </h3>
+                </div>
+
+                <!-- Answer Choices -->
+                <div id="quiz-options-container" class="space-y-3">
+                    <!-- Dynamic Answer Buttons -->
+                </div>
+
+                <!-- Feedback & Explanation Box -->
+                <div id="quiz-explanation-box" class="hidden p-4 rounded-xl border text-xs space-y-1">
+                    <div id="quiz-feedback-title" class="font-bold text-sm"></div>
+                    <p id="quiz-explanation-text" class="text-slate-600 leading-relaxed"></p>
+                </div>
+
+                <!-- Next Button -->
+                <div class="flex justify-end">
+                    <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden bg-indigo-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-indigo-700 transition">
+                        Soal Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Result View -->
+            <div id="quiz-result-container" class="hidden max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-slate-100 text-center space-y-6">
+                <div id="result-icon-container" class="w-24 h-24 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner">
+                    <!-- Icon injected by JS -->
+                </div>
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900">Hasil Kuis Kamu</h2>
+                    <p id="result-message" class="text-sm text-slate-500 mt-1">Luar biasa! Kamu menyelesaikan semua soal.</p>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex justify-around items-center">
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase">Skor Akhir</p>
+                        <p id="result-score" class="text-4xl font-black text-indigo-600 mt-1">0</p>
+                    </div>
+                    <div class="h-10 w-px bg-slate-200"></div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-bold uppercase">Benar / Salah</p>
+                        <p id="result-correct" class="text-xl font-bold text-emerald-600 mt-1">0 / 10</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button onclick="startQuiz()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Coba Lagi
+                    </button>
+                    <button onclick="switchTab('materi')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">
+                        <i class="fa-solid fa-book-open mr-1"></i> Ulas Materi
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>© 2026 Interactive HTML5 Learning Media - English Pronoun Master</p>
+            <p class="text-slate-500">Dirancang untuk Belajar Mandiri: Subject, Object, Possessive Adjective, & Possessive Pronoun.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ==================== TEXT TO SPEECH (AUDIO) ==================== */
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel previous speech if speaking
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85; // Slightly slower speed for clearer listening
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        /* ==================== GLOBAL NAVIGATION ==================== */
+        function switchTab(tabId) {
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Remove active class from buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected section
+            const targetSection = document.getElementById(`section-${tabId}`);
+            if (targetSection) targetSection.classList.remove('hidden');
+
+            // Highlight nav button
+            const targetNav = document.getElementById(`nav-${tabId}`);
+            if (targetNav) targetNav.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        /* ==================== MATERI FILTERING ==================== */
+        function filterMateri(type) {
+            const cards = {
+                'subject': document.getElementById('card-subject'),
+                'object': document.getElementById('card-object'),
+                'poss-adj': document.getElementById('card-poss-adj'),
+                'poss-pron': document.getElementById('card-poss-pron')
+            };
+
+            // Update button styles
+            document.querySelectorAll('.materi-tab').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
+            });
+            event.target.classList.remove('bg-slate-100', 'text-slate-600');
+            event.target.classList.add('bg-indigo-600', 'text-white');
+
+            if (type === 'all') {
+                Object.values(cards).forEach(c => c.style.display = 'block');
+            } else {
+                Object.keys(cards).forEach(key => {
+                    cards[key].style.display = (key === type) ? 'block' : 'none';
+                });
+            }
+        }
+
+        /* ==================== GAME 1: PRONOUN TRANSFORMER ==================== */
+        const game1Data = [
+            {
+                sentence: "<span class='text-indigo-600 font-extrabold underline'>Sarah and Maya</span> are studying together in the library.",
+                options: ["She", "They", "Them", "Their"],
+                correct: 1,
+                explanation: "'Sarah and Maya' adalah subjek jamak (orang ketiga), maka diganti dengan Subject Pronoun 'They'."
+            },
+            {
+                sentence: "Can you give this letter to <span class='text-indigo-600 font-extrabold underline'>John</span>?",
+                options: ["he", "his", "him", "himself"],
+                correct: 2,
+                explanation: "'John' berada setelah kata kerja/preposisi 'to', sehingga bertindak sebagai Object Pronoun 'him'."
+            },
+            {
+                sentence: "This is <span class='text-indigo-600 font-extrabold underline'>Rudi's</span> new bicycle.",
+                options: ["his", "he", "him", "hers"],
+                correct: 0,
+                explanation: "Menyatakan kepemilikan sebelum kata benda ('bicycle'), maka gunakan Possessive Adjective 'his'."
+            },
+            {
+                sentence: "That blue bag belongs to me. It is <span class='text-indigo-600 font-extrabold underline'>my bag</span>.",
+                options: ["my", "me", "mine", "I"],
+                correct: 2,
+                explanation: "Untuk menggantikan 'my bag' secara mandiri di akhir kalimat tanpa mengulang kata benda, gunakan Possessive Pronoun 'mine'."
+            },
+            {
+                sentence: "The cat is washing <span class='text-indigo-600 font-extrabold underline'>the cat's</span> paws.",
+                options: ["it", "its", "it's", "their"],
+                correct: 1,
+                explanation: "Kepemilikan untuk hewan tunggal sebelum noun 'paws' menggunakan Possessive Adjective 'its'."
+            }
+        ];
+
+        let g1CurrentIdx = 0;
+        let g1Score = 0;
+
+        function loadGame1Question() {
+            const q = game1Data[g1CurrentIdx];
+            document.getElementById('g1-sentence').innerHTML = q.sentence;
+            document.getElementById('g1-progress-text').innerText = `Soal ${g1CurrentIdx + 1} dari ${game1Data.length}`;
+            document.getElementById('g1-score').innerText = `Skor: ${g1Score}`;
+            document.getElementById('g1-feedback').classList.add('hidden');
+            document.getElementById('g1-next-btn').classList.add('hidden');
+
+            const optsDiv = document.getElementById('g1-options');
+            optsDiv.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full bg-white hover:bg-indigo-50 border-2 border-slate-200 text-slate-800 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center gap-2';
+                btn.innerText = opt;
+                btn.onclick = () => checkGame1Answer(idx);
+                optsDiv.appendChild(btn);
+            });
+        }
+
+        function checkGame1Answer(selectedIdx) {
+            const q = game1Data[g1CurrentIdx];
+            const feedback = document.getElementById('g1-feedback');
+            const opts = document.getElementById('g1-options').children;
+
+            // Disable buttons
+            for (let btn of opts) btn.disabled = true;
+
+            if (selectedIdx === q.correct) {
+                opts[selectedIdx].className = 'w-full bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-sm';
+                feedback.className = 'p-3 rounded-xl text-xs font-bold text-center bg-emerald-100 text-emerald-800 border border-emerald-300';
+                feedback.innerText = "✨ Benar! " + q.explanation;
+                g1Score += 20;
+            } else {
+                opts[selectedIdx].className = 'w-full bg-red-500 text-white font-bold py-3 rounded-xl transition text-sm';
+                opts[q.correct].className = 'w-full bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-sm';
+                feedback.className = 'p-3 rounded-xl text-xs font-bold text-center bg-red-100 text-red-800 border border-red-300';
+                feedback.innerText = "❌ Kurang tepat. " + q.explanation;
+            }
+
+            document.getElementById('g1-score').innerText = `Skor: ${g1Score}`;
+            feedback.classList.remove('hidden');
+            document.getElementById('g1-next-btn').classList.remove('hidden');
+        }
+
+        function nextGame1Question() {
+            g1CurrentIdx++;
+            if (g1CurrentIdx < game1Data.length) {
+                loadGame1Question();
+            } else {
+                // Finished Game 1
+                document.getElementById('g1-sentence').innerHTML = `🎉 Permainan Selesai!<br><span class='text-sm text-slate-500 font-normal'>Kamu berhasil mengumpulkan skor total: <b>${g1Score} / 100</b></span>`;
+                document.getElementById('g1-options').innerHTML = '';
+                document.getElementById('g1-feedback').classList.add('hidden');
+                document.getElementById('g1-next-btn').classList.add('hidden');
+                confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+            }
+        }
+
+        /* ==================== GAME 2: GROUP CLASSIFIER ==================== */
+        const g2Words = [
+            { word: "I", cat: "subject" },
+            { word: "Them", cat: "object" },
+            { word: "My", cat: "poss-adj" },
+            { word: "Yours", cat: "poss-pron" },
+            { word: "She", cat: "subject" },
+            { word: "Us", cat: "object" },
+            { word: "Their", cat: "poss-adj" },
+            { word: "Mine", cat: "poss-pron" }
+        ];
+
+        let selectedG2Word = null;
+
+        function initGame2() {
+            const bank = document.getElementById('g2-word-bank');
+            bank.innerHTML = '';
+            document.getElementById('zone-subject').innerHTML = '';
+            document.getElementById('zone-object').innerHTML = '';
+            document.getElementById('zone-poss-adj').innerHTML = '';
+            document.getElementById('zone-poss-pron').innerHTML = '';
+            document.getElementById('g2-status').innerText = '';
+
+            g2Words.forEach((item, idx) => {
+                const badge = document.createElement('span');
+                badge.className = 'g2-item bg-white border border-slate-300 hover:border-indigo-500 text-slate-800 font-bold px-3 py-1.5 rounded-lg text-xs cursor-pointer shadow-sm transition transform active:scale-95';
+                badge.innerText = item.word;
+                badge.dataset.cat = item.cat;
+                badge.id = `g2-w-${idx}`;
+                badge.onclick = (e) => {
+                    e.stopPropagation();
+                    selectWordG2(badge);
+                };
+                bank.appendChild(badge);
+            });
+        }
+
+        function selectWordG2(el) {
+            document.querySelectorAll('.g2-item').forEach(b => b.classList.remove('ring-2', 'ring-indigo-600', 'bg-indigo-50'));
+            el.classList.add('ring-2', 'ring-indigo-600', 'bg-indigo-50');
+            selectedG2Word = el;
+        }
+
+        function classifyWord(targetCategory) {
+            if (!selectedG2Word) {
+                document.getElementById('g2-status').innerText = '💡 Klik salah satu kata di atas terlebih dahulu!';
+                return;
+            }
+
+            const correctCategory = selectedG2Word.dataset.cat;
+            if (correctCategory === targetCategory) {
+                // Correct match
+                const zone = document.getElementById(`zone-${targetCategory}`);
+                selectedG2Word.onclick = null;
+                selectedG2Word.className = 'bg-indigo-600 text-white font-bold px-2.5 py-1 rounded-md text-[11px] shadow-sm animate-bounce-short';
+                zone.appendChild(selectedG2Word);
+                selectedG2Word = null;
+                document.getElementById('g2-status').innerText = '✅ Tepat sekali!';
+
+                // Check win condition
+                if (document.getElementById('g2-word-bank').children.length === 0) {
+                    document.getElementById('g2-status').innerText = '🎉 Keren! Semua kata berhasil dikelompokkan!';
+                    confetti({ particleCount: 70, spread: 50 });
+                }
+            } else {
+                document.getElementById('g2-status').innerText = '❌ Kurang tepat, coba kelompok yang lain!';
+            }
+        }
+
+        function resetGame2() {
+            selectedG2Word = null;
+            initGame2();
+        }
+
+        function switchGame(num) {
+            document.getElementById('game-1').classList.toggle('hidden', num !== 1);
+            document.getElementById('game-2').classList.toggle('hidden', num !== 2);
+            document.getElementById('game-3').classList.toggle('hidden', num !== 3);
+            document.getElementById('game-4').classList.toggle('hidden', num !== 4);
+
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`tab-game-${i}`);
+                if (btn) {
+                    if (i === num) {
+                        btn.className = 'px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 whitespace-nowrap';
+                    } else {
+                        btn.className = 'px-4 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700 flex items-center gap-2 whitespace-nowrap';
+                    }
+                }
+            }
+
+            if (num === 2) {
+                initGame2();
+            } else if (num === 3) {
+                loadGame3Story();
+            } else if (num === 4) {
+                loadGame4Case();
+            }
+        }
+
+        /* ==================== GAME 3: STORY CLOZE BUILDER ==================== */
+        const game3Data = [
+            {
+                title: "Cerita 1: Liburan Bersama Keluarga",
+                template: "Last weekend, my family and [SLOT_0] visited grandfather. [SLOT_1] welcomed us warmly at [SLOT_2] house. We brought some fresh apples for [SLOT_3].",
+                translation: "Arti: Akhir pekan lalu, keluarga saya dan saya mengunjungi kakek. Dia menyambut kami dengan hangat di rumahnya. Kami membawakan beberapa apel segar untuknya.",
+                slots: [
+                    { id: 0, answer: "I", options: ["I", "me", "my", "mine"] },
+                    { id: 1, answer: "He", options: ["Him", "His", "He", "They"] },
+                    { id: 2, answer: "his", options: ["he", "him", "his", "he's"] },
+                    { id: 3, answer: "him", options: ["he", "him", "his", "they"] }
+                ]
+            },
+            {
+                title: "Cerita 2: Kucing Kesayangan Rina",
+                template: "Rina has a cute cat. [SLOT_0] name is Milo. Rina feeds [SLOT_1] every morning. Milo loves [SLOT_2] very much because she is kind to [SLOT_3].",
+                translation: "Arti: Rina memiliki seekor kucing lucu. Namanya Milo. Rina memberinya makan setiap pagi. Milo sangat menyayanginya karena dia baik padanya.",
+                slots: [
+                    { id: 0, answer: "Its", options: ["Its", "It's", "It", "Their"] },
+                    { id: 1, answer: "it", options: ["its", "it", "she", "he"] },
+                    { id: 2, answer: "her", options: ["she", "hers", "her", "his"] },
+                    { id: 3, answer: "him", options: ["it", "its", "him", "he"] }
+                ]
+            }
+        ];
+
+        let g3CurrentIdx = 0;
+        let g3Score = 0;
+        let g3ActiveSlot = null;
+        let g3UserAnswers = {};
+
+        function loadGame3Story() {
+            const story = game3Data[g3CurrentIdx];
+            g3UserAnswers = {};
+            g3ActiveSlot = null;
+
+            document.getElementById('g3-story-title').innerText = `${story.title} (${g3CurrentIdx + 1}/${game3Data.length})`;
+            document.getElementById('g3-score').innerText = `Skor: ${g3Score}`;
+            document.getElementById('g3-translation').innerText = story.translation;
+            document.getElementById('g3-feedback').classList.add('hidden');
+            document.getElementById('g3-next-btn').classList.add('hidden');
+            document.getElementById('g3-check-btn').classList.remove('hidden');
+
+            let renderedHtml = story.template;
+            story.slots.forEach(slot => {
+                renderedHtml = renderedHtml.replace(
+                    `[SLOT_${slot.id}]`,
+                    `<button id="g3-btn-slot-${slot.id}" onclick="selectG3Slot(${slot.id})" class="inline-block px-3 py-1 bg-amber-100 hover:bg-amber-200 border-2 border-dashed border-amber-400 text-amber-900 font-extrabold rounded-lg mx-1 transition active:scale-95 text-sm">[ Slot ${slot.id + 1} ]</button>`
+                );
+            });
+
+            document.getElementById('g3-story-box').innerHTML = renderedHtml;
+            document.getElementById('g3-active-slot-hint').innerText = "Klik salah satu tombol slot [ Slot ... ] di atas untuk memilih jawaban!";
+            document.getElementById('g3-options-bank').innerHTML = '';
+        }
+
+        function selectG3Slot(slotId) {
+            g3ActiveSlot = slotId;
+            const story = game3Data[g3CurrentIdx];
+            const slotData = story.slots.find(s => s.id === slotId);
+
+            document.querySelectorAll('[id^="g3-btn-slot-"]').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-indigo-500');
+            });
+            const activeBtn = document.getElementById(`g3-btn-slot-${slotId}`);
+            if (activeBtn) activeBtn.classList.add('ring-4', 'ring-indigo-500');
+
+            document.getElementById('g3-active-slot-hint').innerText = `Pilih kata yang tepat untuk Slot ${slotId + 1}:`;
+
+            const bank = document.getElementById('g3-options-bank');
+            bank.innerHTML = '';
+            slotData.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'bg-white hover:bg-indigo-600 hover:text-white border-2 border-indigo-200 text-indigo-900 font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm';
+                btn.innerText = opt;
+                btn.onclick = () => fillG3Slot(slotId, opt);
+                bank.appendChild(btn);
+            });
+        }
+
+        function fillG3Slot(slotId, word) {
+            g3UserAnswers[slotId] = word;
+            const slotBtn = document.getElementById(`g3-btn-slot-${slotId}`);
+            if (slotBtn) {
+                slotBtn.innerText = word;
+                slotBtn.className = 'inline-block px-3 py-1 bg-indigo-600 text-white font-extrabold rounded-lg mx-1 shadow transition text-sm';
+            }
+
+            // Move to next empty slot if available
+            const story = game3Data[g3CurrentIdx];
+            const nextEmptySlot = story.slots.find(s => !g3UserAnswers[s.id]);
+            if (nextEmptySlot) {
+                selectG3Slot(nextEmptySlot.id);
+            } else {
+                document.getElementById('g3-active-slot-hint').innerText = "✨ Semua slot telah terisi! Klik tombol 'Periksa Jawaban' di bawah.";
+                document.getElementById('g3-options-bank').innerHTML = '';
+            }
+        }
+
+        function checkGame3Story() {
+            const story = game3Data[g3CurrentIdx];
+            let correctCount = 0;
+
+            story.slots.forEach(slot => {
+                const userAns = g3UserAnswers[slot.id];
+                const btn = document.getElementById(`g3-btn-slot-${slot.id}`);
+                if (userAns === slot.answer) {
+                    correctCount++;
+                    if (btn) btn.className = 'inline-block px-3 py-1 bg-emerald-500 text-white font-extrabold rounded-lg mx-1 text-sm';
+                } else {
+                    if (btn) btn.className = 'inline-block px-3 py-1 bg-red-500 text-white font-extrabold rounded-lg mx-1 text-sm line-through';
+                }
+            });
+
+            const feedback = document.getElementById('g3-feedback');
+            feedback.classList.remove('hidden');
+
+            if (correctCount === story.slots.length) {
+                g3Score += 50;
+                feedback.className = 'p-3 rounded-xl text-xs font-bold text-center bg-emerald-100 text-emerald-800 border border-emerald-300';
+                feedback.innerText = `🎉 Semuanya benar! Kamu mendapatkan +50 poin.`;
+            } else {
+                feedback.className = 'p-3 rounded-xl text-xs font-bold text-center bg-amber-100 text-amber-800 border border-amber-300';
+                feedback.innerText = `Kamu menjawab ${correctCount} dari ${story.slots.length} slot dengan benar. Perhatikan warna slot!`;
+            }
+
+            document.getElementById('g3-score').innerText = `Skor: ${g3Score}`;
+            document.getElementById('g3-check-btn').classList.add('hidden');
+            document.getElementById('g3-next-btn').classList.remove('hidden');
+        }
+
+        function nextGame3Story() {
+            g3CurrentIdx++;
+            if (g3CurrentIdx < game3Data.length) {
+                loadGame3Story();
+            } else {
+                document.getElementById('g3-story-box').innerHTML = `🎉 Selamat! Semua cerita berhasil kamu selesaikan!<br><span class='text-sm font-normal text-slate-500'>Skor Akhir Act 3: <b>${g3Score}</b></span>`;
+                document.getElementById('g3-choices-container').classList.add('hidden');
+                document.getElementById('g3-feedback').classList.add('hidden');
+                document.getElementById('g3-next-btn').classList.add('hidden');
+                confetti({ particleCount: 70, spread: 60 });
+            }
+        }
+
+        /* ==================== GAME 4: ERROR SPOTTER ==================== */
+        const game4Data = [
+            {
+                words: ["Him", "is", "playing", "football", "with", "his", "friends."],
+                wrongIdx: 0,
+                fixOptions: ["He", "His", "Himself", "They"],
+                correctFix: "He",
+                explanation: "'Him' adalah Object Pronoun. Posisi di awal kalimat sebagai pelaku utama membutuhkan Subject Pronoun 'He'."
+            },
+            {
+                words: ["This", "new", "laptop", "belongs", "to", "she."],
+                wrongIdx: 5,
+                fixOptions: ["her", "hers", "she", "herself"],
+                correctFix: "her",
+                explanation: "Setelah kata depan/preposisi 'to', gunakan Object Pronoun 'her', bukan Subject Pronoun 'she'."
+            },
+            {
+                words: ["That", "red", "sports", "car", "is", "my."],
+                wrongIdx: 5,
+                fixOptions: ["mine", "me", "I", "my"],
+                correctFix: "mine",
+                explanation: "Di akhir kalimat tanpa diikuti kata benda lagi, gunakan Possessive Pronoun 'mine', bukan Possessive Adjective 'my'."
+            },
+            {
+                words: ["Us", "are", "going", "to", "the", "library", "together."],
+                wrongIdx: 0,
+                fixOptions: ["We", "Our", "Ours", "Us"],
+                correctFix: "We",
+                explanation: "Sebagai subjek di awal kalimat, gunakan Subject Pronoun 'We', bukan Object Pronoun 'Us'."
+            }
+        ];
+
+        let g4CurrentIdx = 0;
+        let g4Score = 0;
+        let g4FoundWrongWord = false;
+
+        function loadGame4Case() {
+            const c = game4Data[g4CurrentIdx];
+            g4FoundWrongWord = false;
+
+            document.getElementById('g4-progress-text').innerText = `Kasus ${g4CurrentIdx + 1} dari ${game4Data.length}`;
+            document.getElementById('g4-score').innerText = `Skor: ${g4Score}`;
+            document.getElementById('g4-fix-panel').classList.add('hidden');
+            document.getElementById('g4-feedback').classList.add('hidden');
+            document.getElementById('g4-next-btn').classList.add('hidden');
+
+            const wordsBox = document.getElementById('g4-sentence-words');
+            wordsBox.innerHTML = '';
+
+            c.words.forEach((w, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'bg-slate-100 hover:bg-amber-100 border-2 border-slate-200 text-slate-800 px-3 py-2 rounded-xl transition font-bold text-sm sm:text-base';
+                btn.innerText = w;
+                btn.onclick = () => spotG4Word(idx, btn);
+                wordsBox.appendChild(btn);
+            });
+        }
+
+        function spotG4Word(wordIdx, btnEl) {
+            if (g4FoundWrongWord) return;
+
+            const c = game4Data[g4CurrentIdx];
+            const feedback = document.getElementById('g4-feedback');
+
+            if (wordIdx === c.wrongIdx) {
+                g4FoundWrongWord = true;
+                btnEl.className = 'bg-red-500 text-white font-extrabold px-3 py-2 rounded-xl transition text-sm sm:text-base animate-pulse';
+
+                // Disable word clicks
+                document.querySelectorAll('#g4-sentence-words button').forEach(b => b.onclick = null);
+
+                // Show Fix Panel
+                const fixPanel = document.getElementById('g4-fix-panel');
+                const optionsDiv = document.getElementById('g4-fix-options');
+                optionsDiv.innerHTML = '';
+
+                c.fixOptions.forEach(opt => {
+                    const optBtn = document.createElement('button');
+                    optBtn.className = 'bg-white hover:bg-indigo-600 hover:text-white border-2 border-indigo-300 text-indigo-900 font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm';
+                    optBtn.innerText = opt;
+                    optBtn.onclick = () => fixG4Word(opt, optBtn);
+                    optionsDiv.appendChild(optBtn);
+                });
+
+                fixPanel.classList.remove('hidden');
+                feedback.classList.add('hidden');
+            } else {
+                feedback.classList.remove('hidden');
+                feedback.className = 'p-3 rounded-xl text-xs font-bold text-center bg-amber-100 text-amber-800 border border-amber-300';
+                feedback.innerText = `🔍 Kata "${btnEl.innerText}" sudah benar. Cari kata ganti (pronoun) lain yang keliru!`;
+            }
+        }
+
+        function fixG4Word(selectedOpt, btnEl) {
+            const c = game4Data[g4CurrentIdx];
+            const feedback = document.getElementById('g4-feedback');
+            feedback.classList.remove('hidden');
+
+            document.querySelectorAll('#g4-fix-options button').forEach(b => b.disabled = true);
+
+            if (selectedOpt === c.correctFix) {
+                btnEl.className = 'bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm';
+                feedback.className = 'p-3 rounded-xl text-xs font-bold text-center bg-emerald-100 text-emerald-800 border border-emerald-300';
+                feedback.innerText = `✨ Tepat Sekali! ${c.explanation}`;
+                g4Score += 25;
+            } else {
+                btnEl.className = 'bg-red-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm';
+                feedback.className = 'p-3 rounded-xl text-xs font-bold text-center bg-red-100 text-red-800 border border-red-300';
+                feedback.innerText = `❌ Kurang tepat. Pengganti yang benar adalah "${c.correctFix}". ${c.explanation}`;
+            }
+
+            document.getElementById('g4-score').innerText = `Skor: ${g4Score}`;
+            document.getElementById('g4-next-btn').classList.remove('hidden');
+        }
+
+        function nextGame4Case() {
+            g4CurrentIdx++;
+            if (g4CurrentIdx < game4Data.length) {
+                loadGame4Case();
+            } else {
+                document.getElementById('g4-sentence-words').innerHTML = `🎉 Detektif Hebat! Semua kasus kesalahan pronoun berhasil dipecahkan!<br><span class='text-sm font-normal text-slate-500'>Skor Akhir Detektif: <b>${g4Score} / 100</b></span>`;
+                document.getElementById('g4-fix-panel').classList.add('hidden');
+                document.getElementById('g4-feedback').classList.add('hidden');
+                document.getElementById('g4-next-btn').classList.add('hidden');
+                confetti({ particleCount: 80, spread: 70 });
+            }
+        }
+
+        /* ==================== SECTION 4: QUIZ / LATIHAN SOAL ==================== */
+        const quizData = [
+            {
+                category: "Subject Pronoun",
+                question: "____ goes to the library every afternoon to read books.",
+                options: ["She", "Her", "Hers", "Herself"],
+                correct: 0,
+                explanation: "Kalimat ini membutuhkan kata ganti sebagai subjek (pelaku) di awal kalimat, maka jawaban yang tepat adalah 'She'."
+            },
+            {
+                category: "Object Pronoun",
+                question: "My father called ____ last night to ask about my exam results.",
+                options: ["I", "me", "my", "mine"],
+                correct: 1,
+                explanation: "Kata ganti berada setelah kata kerja 'called', sehingga berfungsi sebagai objek penderita aksi. Bentuk objek dari 'I' adalah 'me'."
+            },
+            {
+                category: "Possessive Adjective",
+                question: "Don't forget to bring ____ umbrella because it might rain today.",
+                options: ["you", "your", "yours", "yourself"],
+                correct: 1,
+                explanation: "Diikuti langsung oleh kata benda 'umbrella', sehingga membutuhkan Possessive Adjective yaitu 'your'."
+            },
+            {
+                category: "Possessive Pronoun",
+                question: "This blue laptop is mine, but the silver one on the table is ____.",
+                options: ["your", "you", "yours", "yourselves"],
+                correct: 2,
+                explanation: "Menggantikan kata benda kepemilikan tanpa mengulang kata 'laptop' di akhir kalimat, gunakan Possessive Pronoun 'yours'."
+            },
+            {
+                category: "Subject Pronoun",
+                question: "____ are going to visit the museum together tomorrow morning.",
+                options: ["Us", "We", "Our", "Ours"],
+                correct: 1,
+                explanation: "Sebagai pelaku aksi di awal kalimat sebelum kata kerja 'are going', gunakan Subject Pronoun 'We'."
+            },
+            {
+                category: "Object Pronoun",
+                question: "The teacher gave the assignment to ____ before leaving the classroom.",
+                options: ["they", "them", "their", "theirs"],
+                correct: 1,
+                explanation: "Setelah kata depan / preposisi 'to', gunakan Object Pronoun yaitu 'them'."
+            },
+            {
+                category: "Possessive Adjective",
+                question: "The puppy is sleeping peacefully in ____ cozy basket.",
+                options: ["it", "its", "it's", "itself"],
+                correct: 1,
+                explanation: "Kepemilikan untuk benda/hewan sebelum kata benda 'basket' menggunakan Possessive Adjective 'its' (tanpa apostrof)."
+            },
+            {
+                category: "Possessive Pronoun",
+                question: "Is this notebook yours or ____?",
+                options: ["his", "him", "he", "himself"],
+                correct: 0,
+                explanation: "Possessive Pronoun untuk kata ganti laki-laki adalah 'his' (bentuknya sama dengan possessive adjective)."
+            },
+            {
+                category: "Object Pronoun",
+                question: "Please listen carefully to ____ when I am speaking to you.",
+                options: ["I", "my", "me", "mine"],
+                correct: 2,
+                explanation: "Setelah kata depan/preposisi 'to', gunakan Object Pronoun 'me'."
+            },
+            {
+                category: "Possessive Pronoun",
+                question: "Our house is small, but ____ is very large and modern.",
+                options: ["their", "them", "theirs", "they"],
+                correct: 2,
+                explanation: "Untuk menyatakan 'rumah mereka' tanpa mengulang kata 'house' di akhir kalimat, gunakan Possessive Pronoun 'theirs'."
+            }
+        ];
+
+        let quizCurrentIdx = 0;
+        let quizScore = 0;
+        let quizCorrectCount = 0;
+        let quizAnswered = false;
+
+        function startQuiz() {
+            quizCurrentIdx = 0;
+            quizScore = 0;
+            quizCorrectCount = 0;
+
+            document.getElementById('quiz-start-container').classList.add('hidden');
+            document.getElementById('quiz-result-container').classList.add('hidden');
+            document.getElementById('quiz-play-container').classList.remove('hidden');
+
+            loadQuizQuestion();
+        }
+
+        function loadQuizQuestion() {
+            quizAnswered = false;
+            const q = quizData[quizCurrentIdx];
+
+            document.getElementById('quiz-question-number').innerText = `Soal ${quizCurrentIdx + 1} dari ${quizData.length}`;
+            document.getElementById('quiz-current-score').innerText = `Skor: ${quizScore}`;
+            document.getElementById('quiz-progress-bar').style.width = `${((quizCurrentIdx + 1) / quizData.length) * 100}%`;
+            document.getElementById('quiz-category-badge').innerText = q.category;
+            document.getElementById('quiz-question-text').innerText = q.question;
+
+            document.getElementById('quiz-explanation-box').classList.add('hidden');
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left bg-white hover:bg-indigo-50 border-2 border-slate-200 text-slate-800 font-bold p-4 rounded-xl transition text-sm flex items-center justify-between shadow-sm';
+                btn.innerHTML = `<span><span class="inline-block w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-xs font-bold text-center leading-6 mr-3">${String.fromCharCode(65 + idx)}</span>${opt}</span><i class="fa-regular fa-circle text-slate-300 text-lg"></i>`;
+                btn.onclick = () => selectQuizOption(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectQuizOption(selectedIdx) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+
+            const q = quizData[quizCurrentIdx];
+            const container = document.getElementById('quiz-options-container');
+            const buttons = container.children;
+
+            for (let btn of buttons) {
+                btn.disabled = true;
+            }
+
+            const expBox = document.getElementById('quiz-explanation-box');
+            const feedbackTitle = document.getElementById('quiz-feedback-title');
+            const expText = document.getElementById('quiz-explanation-text');
+
+            if (selectedIdx === q.correct) {
+                quizScore += 10;
+                quizCorrectCount++;
+                buttons[selectedIdx].className = 'w-full text-left bg-emerald-500 text-white font-bold p-4 rounded-xl transition text-sm flex items-center justify-between shadow';
+                buttons[selectedIdx].querySelector('i').className = 'fa-solid fa-circle-check text-white text-lg';
+
+                expBox.className = 'p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-xs space-y-1 block';
+                feedbackTitle.className = 'font-bold text-sm text-emerald-800';
+                feedbackTitle.innerText = '✨ Jawaban Benar!';
+            } else {
+                buttons[selectedIdx].className = 'w-full text-left bg-red-500 text-white font-bold p-4 rounded-xl transition text-sm flex items-center justify-between shadow';
+                buttons[selectedIdx].querySelector('i').className = 'fa-solid fa-circle-xmark text-white text-lg';
+
+                buttons[q.correct].className = 'w-full text-left bg-emerald-500 text-white font-bold p-4 rounded-xl transition text-sm flex items-center justify-between shadow';
+                buttons[q.correct].querySelector('i').className = 'fa-solid fa-circle-check text-white text-lg';
+
+                expBox.className = 'p-4 rounded-xl border border-red-200 bg-red-50 text-xs space-y-1 block';
+                feedbackTitle.className = 'font-bold text-sm text-red-800';
+                feedbackTitle.innerText = '❌ Jawaban Kurang Tepat!';
+            }
+
+            expText.innerText = q.explanation;
+            document.getElementById('quiz-current-score').innerText = `Skor: ${quizScore}`;
+            document.getElementById('quiz-next-btn').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            quizCurrentIdx++;
+            if (quizCurrentIdx < quizData.length) {
+                loadQuizQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-play-container').classList.add('hidden');
+            document.getElementById('quiz-result-container').classList.remove('hidden');
+
+            document.getElementById('result-score').innerText = quizScore;
+            document.getElementById('result-correct').innerText = `${quizCorrectCount} / ${quizData.length}`;
+
+            const iconContainer = document.getElementById('result-icon-container');
+            const msg = document.getElementById('result-message');
+
+            if (quizScore >= 80) {
+                iconContainer.className = 'w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner';
+                iconContainer.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+                msg.innerText = 'Luar Biasa! Pemahaman kamu tentang Pronoun sudah sangat matang!';
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } else if (quizScore >= 50) {
+                iconContainer.className = 'w-24 h-24 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner';
+                iconContainer.innerHTML = '<i class="fa-solid fa-star"></i>';
+                msg.innerText = 'Bagus! Kamu sudah memahami dasar-dasar Pronoun. Tingkatkan lagi ya!';
+            } else {
+                iconContainer.className = 'w-24 h-24 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner';
+                iconContainer.innerHTML = '<i class="fa-solid fa-book-open"></i>';
+                msg.innerText = 'Jangan berkecil hati! Yuk ulas kembali materi lalu coba kerjakan lagi!';
+            }
+        }
+
+        // Initialize default view & game 1 on load
+        window.onload = function() {
+            loadGame1Question();
+        }
+    </script>
+</body>
+</html>
